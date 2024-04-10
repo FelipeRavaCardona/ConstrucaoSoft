@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/consumer")
+@RequestMapping("/consumer")
 @AllArgsConstructor
-public class ConsumerController {
+public class UserController {
     @PostMapping
     public void registerConsumer() {
 
@@ -40,6 +40,6 @@ public class ConsumerController {
 
     @GetMapping("/transactions")
     public void getAllTransactions() {
-        
+
     }
 }

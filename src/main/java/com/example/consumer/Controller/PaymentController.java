@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/payment-methods")
+@RequestMapping("/payment-methods")
 @AllArgsConstructor
 public class PaymentController {
     @PostMapping
