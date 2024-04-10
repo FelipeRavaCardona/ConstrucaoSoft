@@ -17,8 +17,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
     @PostMapping
-    public RegisterUserDTO registerConsumer(@RequestBody RegisterUserDTO body) {
-        return body;
+    public void registerConsumer(@RequestBody RegisterUserDTO body) {
+
     }
 
     @PutMapping
