@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.consumer.DTOs.RegisterUserDTO;
+import com.example.consumer.Models.User;
 import com.example.consumer.Service.ConsumerService;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class UserController {
     private ConsumerService service;
 
     @PostMapping
-    public void registerConsumer(@RequestBody RegisterUserDTO body) {
-        service.registerUser(body);
+    public User registerConsumer(@RequestBody RegisterUserDTO body) {
+        return service.registerUser(body);
     }
 
     @PutMapping
@@ -31,7 +32,7 @@ public class UserController {
 
     @GetMapping
     public void getConsumer() {
-
+        
     }
 
     @PostMapping("/transactions")
