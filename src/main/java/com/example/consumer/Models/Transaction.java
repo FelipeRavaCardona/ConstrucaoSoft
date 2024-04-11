@@ -43,11 +43,11 @@ public class Transaction {
     // @OneToOne
     String ticketId;
 
-    public Transaction(Double value, LocalDateTime transactionDate, String tenantId, String buyerId, String ticketId) {
+    public Transaction(Double value, String tenantId, String buyerId, String ticketId) {
         this.transactionId = UUID.randomUUID().toString();
         this.status = TransactionStatus.PENDING;
+        this.transactionDate = LocalDateTime.now();
         this.value = value;
-        this.transactionDate = transactionDate;
         this.tenantId = tenantId;
         this.buyerId = buyerId;
         this.ticketId = ticketId;
