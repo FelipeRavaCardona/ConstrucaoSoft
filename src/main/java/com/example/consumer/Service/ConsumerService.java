@@ -1,7 +1,10 @@
 package com.example.consumer.Service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
+import com.example.consumer.DTOs.ModifyUserDTO;
 import com.example.consumer.DTOs.RegisterUserDTO;
 import com.example.consumer.Models.User;
 import com.example.consumer.Repository.ConsumerRepo;
@@ -27,7 +30,32 @@ public class ConsumerService {
         return consumerRepo.save(user);
     }
 
-    // public User modifyUser() {
+    public User modifyUser(ModifyUserDTO data, String id) {
+        Optional<User> userOptional = consumerRepo.findById(id);
 
-    // }
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (data.getName() != null) {
+                user.setName(data.getName());
+            }
+    
+            if (data.getEmail() != null) {
+                user.setEmail(data.getEmail());
+            }
+    
+            return consumerRepo.save(user);
+        } else {
+            return null;
+        }
+    }
+
+    public User retrieveUser(String id) {
+        Optional<User> userOptional = consumerRepo.findById(id);
+
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            return null;
+        }
+    }
 }
