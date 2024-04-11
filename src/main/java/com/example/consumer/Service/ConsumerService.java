@@ -5,13 +5,15 @@ import org.springframework.stereotype.Service;
 import com.example.consumer.DTOs.RegisterUserDTO;
 import com.example.consumer.Models.User;
 import com.example.consumer.Repository.ConsumerRepo;
+import com.example.consumer.Repository.TransactionRepo;
 
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class ConsumerService {
-    private ConsumerRepo repo;
+    private ConsumerRepo consumerRepo;
+    private TransactionRepo transactionRepo;
 
     public User registerUser(RegisterUserDTO data) {
         User user = new User(
@@ -22,6 +24,10 @@ public class ConsumerService {
             data.getPrivacyConfigId()
         );
         
-        return repo.save(user);
+        return consumerRepo.save(user);
     }
+
+    // public User modifyUser() {
+
+    // }
 }

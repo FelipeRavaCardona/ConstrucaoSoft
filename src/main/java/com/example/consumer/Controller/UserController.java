@@ -12,6 +12,7 @@ import com.example.consumer.DTOs.RegisterUserDTO;
 import com.example.consumer.Models.User;
 import com.example.consumer.Service.ConsumerService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
     private ConsumerService service;
 
     @PostMapping
-    public User registerConsumer(@RequestBody RegisterUserDTO body) {
+    public User registerConsumer(@Valid @RequestBody RegisterUserDTO body) {
         return service.registerUser(body);
     }
 
@@ -32,7 +33,7 @@ public class UserController {
 
     @GetMapping
     public void getConsumer() {
-        
+
     }
 
     @PostMapping("/transactions")

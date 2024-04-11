@@ -34,7 +34,7 @@ public class User {
     public User(String name, String email, String firebaseToken, String tenantId, String privacyConfigId) {
         this.userId = UUID.randomUUID().toString();
         this.name = name;
-        this.email = name;
+        this.email = email;
         this.firebaseToken = firebaseToken;
         this.tenantId = tenantId;
         this.privacyConfigId = privacyConfigId;
