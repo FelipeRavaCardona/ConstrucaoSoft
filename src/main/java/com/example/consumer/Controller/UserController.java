@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.consumer.DTOs.ModifyUserDTO;
 import com.example.consumer.DTOs.MakeTransactionDTO;
 import com.example.consumer.DTOs.RegisterUserDTO;
 import com.example.consumer.Models.Transaction;
@@ -32,18 +33,18 @@ public class UserController {
     }
 
     @PutMapping
-    public void modifyConsumer() {
-
+    public User modifyConsumer(@RequestBody ModifyUserDTO body, @RequestParam("consumerId") String id) {
+        return service.modifyUser(body, id);
     }
 
     @GetMapping
-    public void getConsumer() {
-
+    public User getConsumer(@RequestParam("consumerId") String id) {
+        return service.retrieveUser(id);
     }
 
     @PutMapping("/transactions/{transactionId}")
     public void reimburse(@PathVariable("transactionId") String id) {
-
+        
     }
 
     @PostMapping("/transactions")
