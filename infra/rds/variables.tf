@@ -26,6 +26,13 @@ variable "master_database_username" {
     default     = "postgres"
 }
 
+variable "database_password" {
+    description = "Password for the master user"
+    type        = string
+    sensitive   = true
+    default     = "password"
+}
+
 variable "security_group_ids" {
     description = "list with the ids of the security groups the RDS Instance should be assigned to"
     type        = list(string)

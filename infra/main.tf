@@ -58,12 +58,6 @@ module "rds" {
     subnet_ids               = module.network.public_subnet_ids
 }
 
-module "ecr" {
-    source = "./ecr"
-
-    environment = local.environment
-}
-
 module "ec2" {
   source = "./ec2"
 
@@ -72,7 +66,6 @@ module "ec2" {
   instance_type  = "t2.micro"
   vpc_id         = module.network.vpc_id
   subnet_id      = module.network.public_subnet_ids[0]
-  ecr_arn        = module.ecr.arn
 }
 
 module "api_gateway" {

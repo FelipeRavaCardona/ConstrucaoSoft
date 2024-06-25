@@ -22,8 +22,3 @@ variable "vpc_id" {
   description = "VPC ID where the resources will be created"
   type        = string
 }
-
-variable "ecr_arn" {
-  type = string
-  description = "ARN of the ECR Repository"
-}
