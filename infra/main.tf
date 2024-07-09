@@ -15,8 +15,8 @@ locals {
 
 provider "aws" {
     region                   = "us-east-1"
-    shared_credentials_files = [ "/Users/felip/.aws/credentials" ]
-    profile                  = "consoft"
+    # shared_credentials_files = [ "/Users/felip/.aws/credentials" ]
+    # profile                  = "consoft"
     
     default_tags {
         tags = {
