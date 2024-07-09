@@ -52,7 +52,7 @@ jobs:
         id: ec2_ip
         run: |
           EC2_IP=$(terraform output -raw ec2_ip)
-          echo "::set-output name=ec2_ip::$EC2_IP"
+          echo "ec2_ip=$(EC2_IP)" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
@@ -62,7 +62,7 @@ jobs:
         id: database_url
         run: |
           DATABASE_URL=$(terraform output -raw database_url)
-          echo "::set-output name=database_url::$DATABASE_URL"
+          echo "database_url=$(DATABASE_URL)" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
