@@ -23,8 +23,8 @@ jobs:
 
       - name: Configure SSH Keys
         run: |
-          echo "${{ secrets.ssh_pub }}" > ssh-file.pub
-          echo "${{ secrets.ssh_priv }}" > ssh-file
+          echo "${{secrets.ssh_pub}}" > ssh-file.pub
+          echo "${{secrets.ssh_priv}}" > ssh-file
           chmod 600 ssh-file
           eval `ssh-agent -s`
           ssh-add ssh-file
@@ -49,25 +49,26 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
 
       - name: Set EC2 IP
-        id: set_ec2_ip
+        id: ec2_ip
         run: |
+          echo "$(terraform output -raw ec2_ip)"
           EC2_IP=$(terraform output -raw ec2_ip)
-          echo "ec2_ip=$EC2_IP" >> $GITHUB_ENV
+          echo "ec2_ip=$(EC2_IP)" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
         working-directory: ./infra
 
       - name: Set Database URL
-        id: set_database_url
+        id: database_url
         run: |
           DATABASE_URL=$(terraform output -raw database_url)
-          echo "database_url=$DATABASE_URL" >> $GITHUB_ENV
+          echo "database_url=$(DATABASE_URL)" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
         working-directory: ./infra
-
+          
   docker:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
@@ -111,9 +112,9 @@ jobs:
 
       - name: Deploy Docker Image to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ env.ec2_ip }} << EOF
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
-            docker stop consoft-api || true
-            docker rm consoft-api || true
-            docker run -d -e DATABASE_URL=${{ env.database_url }} --name consoft-api -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
+          ssh -o StrictHostKeyChecking=no ec2-user@${{steps.ec2_ip.outputs.ec2_ip}} << 'EOF'
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
+          docker stop consoft-api || true
+          docker rm consoft-api || true
+          docker run -d -env DATABASE_URL=${{steps.database_url.outputs.database_url}} --name consoft-api -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
           EOF
