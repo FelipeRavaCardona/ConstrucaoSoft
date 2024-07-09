@@ -26,6 +26,7 @@ jobs:
           echo "${{secrets.ssh_pub}}" > ssh-file.pub
           echo "${{secrets.ssh_priv}}" > ssh-file
           chmod 600 ssh-file
+          eval `ssh-agent -s`
           ssh-add ssh-file
 
       - name: Setup Terraform
