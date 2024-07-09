@@ -28,6 +28,14 @@ resource "aws_instance" "this" {
     Name = "${var.name_prefix}-ec2-api"
   }
 
+  user_data = <<-EOF
+    sudo yum update -y
+    sudo yum install docker -y
+    sudo service docker start
+    sudo groupadd docker
+    sudo usermod -a -G docker ec2-user
+    newgrp docker
+  EOF
   
 }
 
