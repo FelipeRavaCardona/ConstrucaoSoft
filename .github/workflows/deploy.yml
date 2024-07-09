@@ -111,9 +111,8 @@ jobs:
 
       - name: Deploy Docker Image to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{steps.ec2_ip.outputs.ec2_ip}} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ec2-user@${{steps.ec2_ip.outputs.ec2_ip}}
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
           docker stop consoft-api || true
           docker rm consoft-api || true
           docker run -d -env DATABASE_URL=${{steps.database_url.outputs.database_url}} --name consoft-api -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/consoft-api:latest
-          EOF
