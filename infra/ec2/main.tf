@@ -1,6 +1,6 @@
 resource "aws_key_pair" "this" {
   key_name   = "github-key"
-  public_key = file("ssh-file.pub")
+  public_key = file("../ssh-file.pub")
 }
 
 resource "aws_security_group" "this" {
