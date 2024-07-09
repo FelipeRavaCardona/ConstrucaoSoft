@@ -75,3 +75,10 @@ module "api_gateway" {
     public_dns  = module.ec2.public_dns
 }
 
+output "ec2_ip" {
+  value = module.ec2.ec2_eip
+}
+
+output "database_url" {
+  value = module.rds.database_url
+}

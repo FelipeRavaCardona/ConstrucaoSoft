@@ -1,3 +1,8 @@
+resource "aws_key_pair" "this" {
+  key_name   = "github-key"
+  public_key = file("ssh-file.pub")
+}
+
 resource "aws_security_group" "this" {
   name_prefix = "${var.name_prefix}-ec2-api"
   vpc_id      = var.vpc_id
@@ -23,6 +28,7 @@ resource "aws_instance" "this" {
   subnet_id     = var.subnet_id
   vpc_security_group_ids = [aws_security_group.this.id]
   associate_public_ip_address = true
+  key_name = aws_key_pair.this.key_name
 
   tags = {
     Name = "${var.name_prefix}-ec2-api"
